@@ -1,6 +1,7 @@
 package fabian.test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import fabian.sorter.Sorter;
 import fabian.sorter.impl.BubbleSortImpl;
+import fabian.sorter.impl.QuickSortConcurrencyImpl;
 import fabian.sorter.impl.ShellSorterImpl;
 import fabian.sorter.impl.SortierenDurchAuswaehlenImpl;
 import fabian.sorter.impl.SortierenDurchEinfuegenImpl;
@@ -21,24 +23,25 @@ public class SorterTest extends TestCase {
 	private static final long MAXVALUE = 100000;
 	private static final long MINVALUE = 1;
 
-	@Override
-	protected void setUp() throws Exception {
+	public SorterTest() {
 		valueCounts = new ArrayList<Integer>();
 		valueCounts.add(new Integer(1000));
 		valueCounts.add(new Integer(10000));
 		valueCounts.add(new Integer(100000));
+		valueCounts.add(new Integer(1000000));
 	}
 
 	@Test
 	public void testSorter() {
 		Map<String, Sorter<Long>> sortermap = new HashMap<String, Sorter<Long>>();
 		List<List<Long>> generateRandomLists = generateRandomLists();
-		sortermap.put("Sortieren durch einfuegen",
-				new SortierenDurchEinfuegenImpl<Long>());
-		sortermap.put("Sortieren Durch Auswaehlen",
-				new SortierenDurchAuswaehlenImpl<Long>());
-		sortermap.put("Bubble Sort", new BubbleSortImpl<Long>());
-		sortermap.put("ShellSort", new ShellSorterImpl<Long>());
+		// sortermap.put("Sortieren durch einfuegen",
+		// new SortierenDurchEinfuegenImpl<Long>());
+		// sortermap.put("Sortieren Durch Auswaehlen",
+		// new SortierenDurchAuswaehlenImpl<Long>());
+		// // sortermap.put("Bubble Sort", new BubbleSortImpl<Long>());
+		// sortermap.put("ShellSort", new ShellSorterImpl<Long>());
+		sortermap.put("Quicksort", new QuickSortConcurrencyImpl<Long>());
 		executeSorter(sortermap, generateRandomLists);
 	}
 
@@ -81,6 +84,9 @@ public class SorterTest extends TestCase {
 		long sortstart = System.currentTimeMillis();
 		List<Long> sort = sorter.sort();
 		long sortstop = System.currentTimeMillis();
+		List<Long> reference = new ArrayList<Long>(shuffledList);
+		Collections.sort(reference);
+		assertEquals(reference, sort);
 		Long old = null;
 		for (Long long1 : sort) {
 			assertNotNull(long1);

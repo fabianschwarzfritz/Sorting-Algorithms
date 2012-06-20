@@ -1,5 +1,10 @@
 package fabian.sorter;
 
-public class Main {
+import fabian.test.SorterTest;
 
+public class Main {
+	public static void main(String[] args) {
+		SorterTest t = new SorterTest();
+		t.testSorter();
+	}
 }

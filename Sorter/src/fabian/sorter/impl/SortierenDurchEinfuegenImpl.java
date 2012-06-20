@@ -14,7 +14,7 @@ public class SortierenDurchEinfuegenImpl<T extends Comparable<T>> extends
 
 	@Override
 	public List<T> sort() {
-		int j = 0;
+		int j;
 		T x = null;
 		for (int i = 1; i < list.size(); i++) {
 			// Element nehmen

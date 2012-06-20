@@ -7,7 +7,7 @@ public class SortierenDurchAuswaehlenImpl<T extends Comparable<T>> extends
 
 	@Override
 	public List<T> sort() {
-		int k = 0;
+		int k;
 		T x = null;
 		for (int i = 0; i < list.size() - 1; i++) {
 			k = i;

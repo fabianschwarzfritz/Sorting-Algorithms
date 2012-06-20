@@ -1,7 +1,6 @@
 package fabian.test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,8 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import fabian.sorter.Sorter;
+import fabian.sorter.impl.BubbleSortImpl;
+import fabian.sorter.impl.ShellSorterImpl;
 import fabian.sorter.impl.SortierenDurchAuswaehlenImpl;
 import fabian.sorter.impl.SortierenDurchEinfuegenImpl;
 
@@ -30,35 +31,39 @@ public class SorterTest extends TestCase {
 
 	@Test
 	public void testSorter() {
-		Map<Integer, List<Long>> generateRandomLists = generateRandomLists();
-		for (Map.Entry<Integer, List<Long>> entry : generateRandomLists
-				.entrySet()) {
-			do5Times("Sortieren durch einfuegen", entry.getValue(),
-					new SortierenDurchEinfuegenImpl<Long>());
-			do5Times("Sortieren durch auswaehlen", entry.getValue(),
-					new SortierenDurchAuswaehlenImpl<Long>());
-			do5Times("Sortieren druch austauschen", entry.getValue(),
-					new SortierenDurchEinfuegenImpl<Long>());
-		}
-
+		Map<String, Sorter<Long>> sortermap = new HashMap<String, Sorter<Long>>();
+		List<List<Long>> generateRandomLists = generateRandomLists();
+		sortermap.put("Sortieren durch einfuegen",
+				new SortierenDurchEinfuegenImpl<Long>());
+		sortermap.put("Sortieren durch einfuegen",
+				new SortierenDurchAuswaehlenImpl<Long>());
+		sortermap.put("Sortieren durch einfuegen", new BubbleSortImpl<Long>());
+		sortermap.put("Sortieren durch einfuegen", new ShellSorterImpl<Long>());
+		executeSorter(sortermap, generateRandomLists);
 	}
 
-	private Map<Integer, List<Long>> generateRandomLists() {
-		Map<Integer, List<Long>> map = new HashMap<Integer, List<Long>>();
+	private List<List<Long>> generateRandomLists() {
+		List<List<Long>> result = new ArrayList<List<Long>>();
 		for (Integer integer : valueCounts) {
-			map.put(integer, generateList(integer));
+			result.add(generateList(integer));
 		}
-		return map;
+		return result;
 	}
 
-	private void do5Times(String name, List<Long> generatedList,
-			Sorter<Long> sorter) {
-		for (int i = 0; i < 5; i++) {
-			long millisSortierenDurchEinfuegen = sortAndGetMillis(sorter,
-					generatedList);
-			System.out.println(name + ": \t" + millisSortierenDurchEinfuegen
-					+ "\tms - Listenlaenge:\t" + generatedList.size()
-					+ " \t von " + MINVALUE + " bis " + MAXVALUE);
+	private void executeSorter(Map<String, Sorter<Long>> entry,
+			List<List<Long>> generateList) {
+		for (Map.Entry<String, Sorter<Long>> sorterentry : entry.entrySet()) {
+			System.out.println(sorterentry.getKey() + " -- Werte von " + MINVALUE
+					+ " bis " + MAXVALUE);
+			for (List<Long> list : generateList) {
+				System.out.print(" Listsize " + list.size() + ": \t");
+				for (int i = 0; i < 5; i++) {
+					long milliseconds = sortAndGetMillis(
+							sorterentry.getValue(), list);
+					System.out.print(milliseconds + "ms\t");
+				}
+				System.out.println();
+			}
 		}
 	}
 

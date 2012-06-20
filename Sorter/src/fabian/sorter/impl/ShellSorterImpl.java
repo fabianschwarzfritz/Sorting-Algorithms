@@ -3,7 +3,7 @@ package fabian.sorter.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShellSorterImpl<T extends Comparable<T>> extends SortImpl<T> {
+public class ShellSorterImpl<T extends Comparable<T>> extends SorterImpl<T> {
 
 	private int generateSchreittweite(int k) {
 		if (k == 0) {

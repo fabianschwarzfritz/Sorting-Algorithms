@@ -3,7 +3,7 @@ package fabian.sorter.impl;
 import java.util.List;
 
 public class SortierenDurchAuswaehlenImpl<T extends Comparable<T>> extends
-		SortImpl<T> {
+		SorterImpl<T> {
 
 	@Override
 	public List<T> sort() {

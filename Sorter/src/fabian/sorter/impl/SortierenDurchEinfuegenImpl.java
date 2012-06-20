@@ -3,7 +3,7 @@ package fabian.sorter.impl;
 import java.util.List;
 
 public class SortierenDurchEinfuegenImpl<T extends Comparable<T>> extends
-		SortImpl<T> {
+		SorterImpl<T> {
 
 	public SortierenDurchEinfuegenImpl(List<T> list) {
 		super.list = list;

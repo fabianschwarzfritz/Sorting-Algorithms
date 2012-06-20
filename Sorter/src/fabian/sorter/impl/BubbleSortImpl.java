@@ -2,7 +2,7 @@ package fabian.sorter.impl;
 
 import java.util.List;
 
-public class BubbleSortImpl<T extends Comparable<T>> extends SortImpl<T> {
+public class BubbleSortImpl<T extends Comparable<T>> extends SorterImpl<T> {
 
 	@Override
 	public List<T> sort() {

@@ -35,10 +35,10 @@ public class SorterTest extends TestCase {
 		List<List<Long>> generateRandomLists = generateRandomLists();
 		sortermap.put("Sortieren durch einfuegen",
 				new SortierenDurchEinfuegenImpl<Long>());
-		sortermap.put("Sortieren durch einfuegen",
+		sortermap.put("Sortieren Durch Auswaehlen",
 				new SortierenDurchAuswaehlenImpl<Long>());
-		sortermap.put("Sortieren durch einfuegen", new BubbleSortImpl<Long>());
-		sortermap.put("Sortieren durch einfuegen", new ShellSorterImpl<Long>());
+		sortermap.put("Bubble Sort", new BubbleSortImpl<Long>());
+		sortermap.put("ShellSort", new ShellSorterImpl<Long>());
 		executeSorter(sortermap, generateRandomLists);
 	}
 
@@ -53,8 +53,8 @@ public class SorterTest extends TestCase {
 	private void executeSorter(Map<String, Sorter<Long>> entry,
 			List<List<Long>> generateList) {
 		for (Map.Entry<String, Sorter<Long>> sorterentry : entry.entrySet()) {
-			System.out.println(sorterentry.getKey() + " -- Werte von " + MINVALUE
-					+ " bis " + MAXVALUE);
+			System.out.println(sorterentry.getKey() + " -- Werte von "
+					+ MINVALUE + " bis " + MAXVALUE);
 			for (List<Long> list : generateList) {
 				System.out.print(" Listsize " + list.size() + ": \t");
 				for (int i = 0; i < 5; i++) {

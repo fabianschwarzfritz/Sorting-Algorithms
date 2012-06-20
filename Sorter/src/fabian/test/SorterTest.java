@@ -8,12 +8,12 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import fabian.sorter.Sorter;
-import fabian.sorter.SortierenDurchEinfuegenImpl;
+import fabian.sorter.impl.SortierenDurchEinfuegenImpl;
 
 public class SorterTest extends TestCase {
 
 	private static final long VALUECOUNT = 100000;
-	private static final long MAXVALUE = 100000000;
+	private static final long MAXVALUE = 100000;
 	private static final long MINVALUE = 1;
 
 	@Test

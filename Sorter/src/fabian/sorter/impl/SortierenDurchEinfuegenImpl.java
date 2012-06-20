@@ -1,6 +1,8 @@
-package fabian.sorter;
+package fabian.sorter.impl;
 
 import java.util.List;
+
+import fabian.sorter.Sorter;
 
 public class SortierenDurchEinfuegenImpl<T extends Comparable<T>> implements
 		Sorter<T> {

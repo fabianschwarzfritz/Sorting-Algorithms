@@ -19,6 +19,7 @@ public class SortierenDurchAuswaehlenImpl<T extends Comparable<T>> extends
 					k = j;
 				}
 			}
+			// tauschen
 			x = list.get(k);
 			list.set(k, list.get(i));
 			list.set(i, x);

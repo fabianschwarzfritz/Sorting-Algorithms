@@ -24,13 +24,14 @@ public class SorterTest extends TestCase {
 		}
 		Sorter sorter = new BubbleSorterImpl(list);
 		List<? extends Comparable> sort = sorter.sort();
-		Comparable compBefore = null;
-		for (Comparable comparable : sort) {
-			if (compBefore != null) {
-				int compareTo = compBefore.compareTo(comparable);
-				assertTrue(compareTo < 1);
+		Comparable old = null;
+		for (int i = 0; i < sort.size(); i++) {
+			Comparable current = sort.get(i);
+			if (old != null) {
+				int compareTo = old.compareTo(current);
+				assertEquals(-1, compareTo);
 			}
-			compBefore = comparable;
+			old = sort.get(i);
 		}
 	}
 }

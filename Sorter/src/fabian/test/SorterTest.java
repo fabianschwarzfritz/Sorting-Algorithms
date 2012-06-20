@@ -37,6 +37,8 @@ public class SorterTest extends TestCase {
 					new SortierenDurchEinfuegenImpl<Long>());
 			do5Times("Sortieren durch auswaehlen", entry.getValue(),
 					new SortierenDurchAuswaehlenImpl<Long>());
+			do5Times("Sortieren druch austauschen", entry.getValue(),
+					new SortierenDurchEinfuegenImpl<Long>());
 		}
 
 	}

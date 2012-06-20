@@ -12,7 +12,8 @@ import org.junit.Test;
 
 import fabian.sorter.Sorter;
 import fabian.sorter.impl.BubbleSortImpl;
-import fabian.sorter.impl.QuickSortConcurrencyImpl;
+import fabian.sorter.impl.QuickSortConcurrencyMergeImpl;
+import fabian.sorter.impl.QuickSortImpl;
 import fabian.sorter.impl.ShellSorterImpl;
 import fabian.sorter.impl.SortierenDurchAuswaehlenImpl;
 import fabian.sorter.impl.SortierenDurchEinfuegenImpl;
@@ -22,6 +23,7 @@ public class SorterTest extends TestCase {
 	private List<Integer> valueCounts = new ArrayList<Integer>();
 	private static final long MAXVALUE = 100000;
 	private static final long MINVALUE = 1;
+	private static final long PROBES = 1;
 
 	public SorterTest() {
 		valueCounts = new ArrayList<Integer>();
@@ -29,6 +31,7 @@ public class SorterTest extends TestCase {
 		valueCounts.add(new Integer(10000));
 		valueCounts.add(new Integer(100000));
 		valueCounts.add(new Integer(1000000));
+		valueCounts.add(new Integer(10000000));
 	}
 
 	@Test
@@ -41,7 +44,9 @@ public class SorterTest extends TestCase {
 		// new SortierenDurchAuswaehlenImpl<Long>());
 		// // sortermap.put("Bubble Sort", new BubbleSortImpl<Long>());
 		// sortermap.put("ShellSort", new ShellSorterImpl<Long>());
-		sortermap.put("Quicksort", new QuickSortConcurrencyImpl<Long>());
+		sortermap.put("Quicksort\t", new QuickSortImpl<Long>());
+		sortermap.put("Quicksortparallel",
+				new QuickSortConcurrencyMergeImpl<Long>());
 		executeSorter(sortermap, generateRandomLists);
 	}
 
@@ -55,12 +60,12 @@ public class SorterTest extends TestCase {
 
 	private void executeSorter(Map<String, Sorter<Long>> entry,
 			List<List<Long>> generateList) {
-		for (Map.Entry<String, Sorter<Long>> sorterentry : entry.entrySet()) {
-			System.out.println(sorterentry.getKey() + " -- Werte von "
-					+ MINVALUE + " bis " + MAXVALUE);
-			for (List<Long> list : generateList) {
-				System.out.print(" Listsize " + list.size() + ": \t");
-				for (int i = 0; i < 5; i++) {
+		for (List<Long> list : generateList) {
+			System.out.print("Listsize " + list.size() + " -- Werte von "
+					+ MINVALUE + " bis " + MAXVALUE + ": \n");
+			for (Map.Entry<String, Sorter<Long>> sorterentry : entry.entrySet()) {
+				System.out.print("\t" + sorterentry.getKey() + ": \t");
+				for (int i = 0; i < PROBES; i++) {
 					long milliseconds = sortAndGetMillis(
 							sorterentry.getValue(), list);
 					System.out.print(milliseconds + "ms\t");
@@ -88,8 +93,10 @@ public class SorterTest extends TestCase {
 		Collections.sort(reference);
 		assertEquals(reference, sort);
 		Long old = null;
-		for (Long long1 : sort) {
+		for (int i = 0; i < sort.size(); i++) {
+			Long long1 = sort.get(i);
 			assertNotNull(long1);
+			// System.out.println(long1 + " - " + reference.get(i));
 			if (old != null) {
 				assertTrue(old + " doesn't seem to be smaller than " + long1,
 						old <= long1);

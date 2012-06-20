@@ -2,16 +2,11 @@ package fabian.sorter.impl;
 
 import java.util.List;
 
-import fabian.sorter.Sorter;
-
-public class SortierenDurchEinfuegenImpl<T extends Comparable<T>> implements
-		Sorter<T> {
-
-	private List<T> list;
+public class SortierenDurchEinfuegenImpl<T extends Comparable<T>> extends
+		SortImpl<T> {
 
 	public SortierenDurchEinfuegenImpl(List<T> list) {
-		super();
-		this.list = list;
+		super.list = list;
 	}
 
 	public SortierenDurchEinfuegenImpl() {
@@ -30,16 +25,6 @@ public class SortierenDurchEinfuegenImpl<T extends Comparable<T>> implements
 			}
 			list.set(j, x);
 		}
-		return list;
-	}
-
-	@Override
-	public void setList(List<T> list) {
-		this.list = list;
-	}
-
-	@Override
-	public List<T> getList() {
 		return list;
 	}
 }

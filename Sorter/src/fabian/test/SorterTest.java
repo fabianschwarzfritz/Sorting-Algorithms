@@ -3,6 +3,7 @@ package fabian.test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,10 +41,11 @@ public class SorterTest extends TestCase {
 		List<List<Long>> generateRandomLists = generateRandomLists();
 		sortermap.put("Quickp", new QuickSortConcurrencyMergeImpl<Long>());
 		sortermap.put("Quicksort", new QuickSortImpl<Long>());
-		sortermap.put("Einfuegen", new SortierenDurchEinfuegenImpl<Long>());
-		sortermap.put("Auswaehlen", new SortierenDurchAuswaehlenImpl<Long>());
+		// sortermap.put("Einfuegen", new SortierenDurchEinfuegenImpl<Long>());
+		// sortermap.put("Auswaehlen", new
+		// SortierenDurchAuswaehlenImpl<Long>());
 		// sortermap.put("Bubble Sort", new BubbleSortImpl<Long>());
-		sortermap.put("ShellSort", new ShellSorterImpl<Long>());
+		// sortermap.put("ShellSort", new ShellSorterImpl<Long>());
 		executeSorter(sortermap, generateRandomLists);
 	}
 
@@ -73,7 +75,7 @@ public class SorterTest extends TestCase {
 	}
 
 	private List<Long> generateList(int valuecount) {
-		List<Long> list = new ArrayList<Long>();
+		List<Long> list = new LinkedList<Long>();
 		for (int i = 0; i < valuecount; i++) {
 			list.add(new Long((long) ((Math.random() * MAXVALUE) + MINVALUE)));
 		}
@@ -86,6 +88,7 @@ public class SorterTest extends TestCase {
 		long sortstart = System.currentTimeMillis();
 		List<Long> sort = sorter.sort();
 		long sortstop = System.currentTimeMillis();
+		assertEquals(shuffledList.size(), sort.size());
 		List<Long> reference = new ArrayList<Long>(shuffledList);
 		Collections.sort(reference);
 		assertEquals(reference, sort);

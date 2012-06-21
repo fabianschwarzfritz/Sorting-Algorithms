@@ -12,11 +12,11 @@ import org.junit.Test;
 
 import fabian.sorter.Sorter;
 import fabian.sorter.impl.BubbleSortImpl;
-import fabian.sorter.impl.QuickSortConcurrencyMergeImpl;
 import fabian.sorter.impl.QuickSortImpl;
 import fabian.sorter.impl.ShellSorterImpl;
 import fabian.sorter.impl.SortierenDurchAuswaehlenImpl;
 import fabian.sorter.impl.SortierenDurchEinfuegenImpl;
+import fabian.sorter.impl.concurrent.QuickSortConcurrencyMergeImpl;
 
 public class SorterTest extends TestCase {
 
@@ -38,15 +38,12 @@ public class SorterTest extends TestCase {
 	public void testSorter() {
 		Map<String, Sorter<Long>> sortermap = new HashMap<String, Sorter<Long>>();
 		List<List<Long>> generateRandomLists = generateRandomLists();
-		// sortermap.put("Sortieren durch einfuegen",
-		// new SortierenDurchEinfuegenImpl<Long>());
-		// sortermap.put("Sortieren Durch Auswaehlen",
-		// new SortierenDurchAuswaehlenImpl<Long>());
-		// // sortermap.put("Bubble Sort", new BubbleSortImpl<Long>());
-		// sortermap.put("ShellSort", new ShellSorterImpl<Long>());
-		sortermap.put("Quicksort\t", new QuickSortImpl<Long>());
-		sortermap.put("Quicksortparallel",
-				new QuickSortConcurrencyMergeImpl<Long>());
+		sortermap.put("Quickp", new QuickSortConcurrencyMergeImpl<Long>());
+		sortermap.put("Quicksort", new QuickSortImpl<Long>());
+		sortermap.put("Einfuegen", new SortierenDurchEinfuegenImpl<Long>());
+		sortermap.put("Auswaehlen", new SortierenDurchAuswaehlenImpl<Long>());
+		// sortermap.put("Bubble Sort", new BubbleSortImpl<Long>());
+		sortermap.put("ShellSort", new ShellSorterImpl<Long>());
 		executeSorter(sortermap, generateRandomLists);
 	}
 

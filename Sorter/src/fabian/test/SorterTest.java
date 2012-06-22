@@ -12,12 +12,14 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import fabian.sorter.Sorter;
+import fabian.sorter.concurrency3.QuickSorterConcurrency3;
 import fabian.sorter.impl.BubbleSortImpl;
 import fabian.sorter.impl.QuickSortImpl;
 import fabian.sorter.impl.ShellSorterImpl;
 import fabian.sorter.impl.SortierenDurchAuswaehlenImpl;
 import fabian.sorter.impl.SortierenDurchEinfuegenImpl;
 import fabian.sorter.impl.concurrent.QuickSortConcurrencyMergeImpl;
+import fabian.sorter.impl.concurrent2.QuickSorterConcurrency2;
 
 public class SorterTest extends TestCase {
 
@@ -39,7 +41,9 @@ public class SorterTest extends TestCase {
 	public void testSorter() {
 		Map<String, Sorter<Long>> sortermap = new HashMap<String, Sorter<Long>>();
 		List<List<Long>> generateRandomLists = generateRandomLists();
-		sortermap.put("Quickp", new QuickSortConcurrencyMergeImpl<Long>());
+		// sortermap.put("Quickp", new QuickSortConcurrencyMergeImpl<Long>());
+		sortermap.put("Quickp2", new QuickSorterConcurrency2<Long>());
+		sortermap.put("Quickp3", new QuickSorterConcurrency3<Long>());
 		sortermap.put("Quicksort", new QuickSortImpl<Long>());
 		// sortermap.put("Einfuegen", new SortierenDurchEinfuegenImpl<Long>());
 		// sortermap.put("Auswaehlen", new
@@ -75,7 +79,7 @@ public class SorterTest extends TestCase {
 	}
 
 	private List<Long> generateList(int valuecount) {
-		List<Long> list = new LinkedList<Long>();
+		List<Long> list = new ArrayList<Long>();
 		for (int i = 0; i < valuecount; i++) {
 			list.add(new Long((long) ((Math.random() * MAXVALUE) + MINVALUE)));
 		}

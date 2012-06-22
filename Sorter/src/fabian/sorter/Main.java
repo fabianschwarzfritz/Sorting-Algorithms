@@ -1,10 +1,11 @@
 package fabian.sorter;
 
-import fabian.test.SorterTest;
+import arrayimpl.SorterTester;
 
 public class Main {
 	public static void main(String[] args) {
-		SorterTest t = new SorterTest();
+		System.out.println("** Fabian Schwarz-Fritz :)  **");
+		SorterTester t = new SorterTester();
 		t.testSorter();
 	}
 }

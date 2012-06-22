@@ -32,11 +32,15 @@ public class SorterTester extends TestCase {
 		valueCounts.add(new Integer(10000));
 		valueCounts.add(new Integer(100000));
 		valueCounts.add(new Integer(1000000));
+		valueCounts.add(new Integer(3000000));
+		valueCounts.add(new Integer(5000000));
 		valueCounts.add(new Integer(10000000));
 		valueCounts.add(new Integer(20000000));
 		valueCounts.add(new Integer(50000000));
 		valueCounts.add(new Integer(70000000));
+		valueCounts.add(new Integer(90000000));
 		valueCounts.add(new Integer(100000000));
+		valueCounts.add(new Integer(200000000));
 		valueCounts.add(new Integer(300000000));
 		valueCounts.add(new Integer(500000000));
 		valueCounts.add(new Integer(1000000000));

@@ -1,4 +1,4 @@
-package arrayimpl;
+package arrayimpl.sorterimpl;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
@@ -7,6 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import arrayimpl.abstractalg.Sorter;
 
 public class QuickSorterConcurrencyQuickSort implements Sorter {
 

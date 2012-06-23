@@ -1,4 +1,4 @@
-package arrayimpl;
+package arrayimpl.sorterimpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,44 +14,47 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import arrayimpl.abstractalg.Sorter;
+
 public class SorterTester extends TestCase {
 
 	private List<Integer> valueCounts = new ArrayList<Integer>();
-	private static final long MAXVALUE = 100000;
-	private static final long MINVALUE = 1;
-	private static final long PROBES = 1;
+	private static final long MAXVALUE = Integer.MAX_VALUE;
+	private static final long MINVALUE = Integer.MIN_VALUE;
+	private static final long PROBES = 5;
 
 	private static final Logger logger = Logger.getLogger("logger");
 
 	public SorterTester() {
-		StreamHandler sh = new StreamHandler(System.out, new SimpleFormatter());
-		logger.addHandler(sh);
-		logger.log(Level.INFO, "alle");
 		valueCounts = new ArrayList<Integer>();
 		valueCounts.add(new Integer(1000));
 		valueCounts.add(new Integer(10000));
 		valueCounts.add(new Integer(100000));
 		valueCounts.add(new Integer(1000000));
-		valueCounts.add(new Integer(3000000));
-		valueCounts.add(new Integer(5000000));
+		// valueCounts.add(new Integer(3000000));
+		// valueCounts.add(new Integer(5000000));
 		valueCounts.add(new Integer(10000000));
-		valueCounts.add(new Integer(20000000));
-		valueCounts.add(new Integer(50000000));
-		valueCounts.add(new Integer(70000000));
-		valueCounts.add(new Integer(90000000));
-		valueCounts.add(new Integer(100000000));
-		valueCounts.add(new Integer(200000000));
-		valueCounts.add(new Integer(300000000));
-		valueCounts.add(new Integer(500000000));
-		valueCounts.add(new Integer(1000000000));
+		// valueCounts.add(new Integer(20000000));
+		// valueCounts.add(new Integer(50000000));
+		// valueCounts.add(new Integer(70000000));
+		// valueCounts.add(new Integer(90000000));
+		// valueCounts.add(new Integer(100000000));
+		// valueCounts.add(new Integer(200000000));
+		// valueCounts.add(new Integer(300000000));
+		// valueCounts.add(new Integer(500000000));
+		// valueCounts.add(new Integer(1000000000));
 	}
 
 	@Test
 	public void testSorter() {
 		Map<String, Sorter> sortermap = new HashMap<String, Sorter>();
-		sortermap.put("aQuickpasdfasdfasdf", new QuickSortImpl());
-		sortermap.put("calculatedconf", new QuickSorterConcurrencyQuickSort(
+		sortermap.put("quicksorter norm", new QuickSortImpl());
+		sortermap.put("quicksortparalel", new QuickSorterConcurrencyQuickSort(
 				logger));
+		sortermap.put("heapsorter     ", new HeapSorterImpl());
+		sortermap.put("bubblesorter   ", new BubbleSorterImpl());
+		sortermap.put("sortieren d einf", new SortierenDurchEinfuegenImpl());
+		sortermap.put("sortieren d aus", new SortierenDurchAuswaehlenImpl());
 		for (Integer i : valueCounts) {
 			executeSorter(sortermap, generateList(i));
 		}
@@ -76,28 +79,29 @@ public class SorterTester extends TestCase {
 		System.out.println("Generating value list with count " + valuecount);
 		int[] arr = new int[valuecount];
 		for (int i = 0; i < valuecount; i++) {
-			arr[i] = (int) ((Math.random() * MAXVALUE) + MINVALUE);
+			arr[i] = (int) ((Math.random() * (MAXVALUE - MINVALUE)) + MINVALUE);
 		}
 		return arr;
 	}
 
 	private long sortAndGetMillis(Sorter sorter, int[] shuffledList) {
+		// System.out.println("Sorting: " + Arrays.toString(shuffledList));
 		sorter.setArr(shuffledList);
 		long sortstart = System.currentTimeMillis();
 		int[] sort = sorter.sort();
 		long sortstop = System.currentTimeMillis();
 		assertEquals(shuffledList.length, sort.length);
-		// int[] sorted = shuffledList.clone();
-		// Arrays.sort(sorted);
-		// assertTrue(Arrays.equals(sorted, sort));
-		// int old = Integer.MIN_VALUE;
-		// for (int i = 0; i < sort.length; i++) {
-		// int long1 = sort[i];
-		// // System.out.println(long1 + " - " + reference.get(i));
-		// assertTrue(old + " doesn't seem to be smaller than " + long1,
-		// old <= long1);
-		// old = long1;
-		// }
+		int[] sorted = shuffledList.clone();
+		Arrays.sort(sorted);
+		assertTrue(Arrays.equals(sorted, sort));
+		int old = Integer.MIN_VALUE;
+		for (int i = 0; i < sort.length; i++) {
+			int long1 = sort[i];
+			// System.out.println(long1 + " - " + reference.get(i));
+			assertTrue(old + " doesn't seem to be smaller than " + long1,
+					old <= long1);
+			old = long1;
+		}
 		return sortstop - sortstart;
 	}
 }

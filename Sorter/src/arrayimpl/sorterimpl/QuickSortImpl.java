@@ -1,8 +1,8 @@
-package arrayimpl;
+package arrayimpl.sorterimpl;
 
-public class QuickSortImpl implements Sorter {
+import arrayimpl.abstractalg.AbstractSorter;
 
-	private int[] arr;
+public class QuickSortImpl extends AbstractSorter {
 
 	@Override
 	public int[] sort() {
@@ -48,16 +48,5 @@ public class QuickSortImpl implements Sorter {
 			tauschen(arr, l, rechts);
 		}
 		return l;
-	}
-
-	private void tauschen(int[] arr, int a, int b) {
-		int tmp = arr[a];
-		arr[a] = arr[b];
-		arr[b] = tmp;
-	}
-
-	@Override
-	public void setArr(int[] arr) {
-		this.arr = arr;
 	}
 }

@@ -1,4 +1,4 @@
-package arrayimpl;
+package arrayimpl.abstractalg;
 
 public interface Sorter {
 	int[] sort();

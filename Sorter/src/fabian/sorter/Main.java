@@ -1,6 +1,6 @@
 package fabian.sorter;
 
-import arrayimpl.sorterimpl.SorterTester;
+import arrayimpl.abstractalg.SorterTester;
 
 public class Main {
 	public static void main(String[] args) {

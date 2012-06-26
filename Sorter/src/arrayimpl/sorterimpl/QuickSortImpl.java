@@ -1,8 +1,16 @@
 package arrayimpl.sorterimpl;
 
 import arrayimpl.abstractalg.AbstractSorter;
+import arrayimpl.abstractalg.PivotCalculator;
 
 public class QuickSortImpl extends AbstractSorter {
+
+	private PivotCalculator pivot;
+
+	public QuickSortImpl(PivotCalculator pivot) {
+		super();
+		this.pivot = pivot;
+	}
 
 	@Override
 	public int[] sort() {
@@ -21,7 +29,7 @@ public class QuickSortImpl extends AbstractSorter {
 	}
 
 	private int divide(int[] arr, int links, int rechts) {
-		int pivotelement = arr[rechts];
+		int pivotelement = pivot.getPivot(arr, links, rechts);
 		int l = links;
 		int r = rechts;
 		do {
@@ -40,13 +48,19 @@ public class QuickSortImpl extends AbstractSorter {
 			// dieser element liegen bei l und r
 			if (l < r) {
 				// Dreieckstausch
-				tauschen(arr, l, r);
+				swap(arr, l, r);
 			}
 		} while (l < r);
 		// Übriges element tauschen
 		if (pivotelement < arr[l]) {
-			tauschen(arr, l, rechts);
+			swap(arr, l, rechts);
 		}
 		return l;
+	}
+
+	private void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 }

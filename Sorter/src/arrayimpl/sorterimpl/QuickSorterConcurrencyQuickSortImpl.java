@@ -8,12 +8,14 @@ import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import arrayimpl.abstractalg.PivotCalculator;
 import arrayimpl.abstractalg.Sorter;
 
-public class QuickSorterConcurrencyQuickSort implements Sorter {
+public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 
 	private static Logger logger;
 	private int ELEMENTCOUNT_SEQUENTIALSORTING;
+	private PivotCalculator pivot;
 
 	private static ConcurrentLinkedQueue<Future<?>> running = new ConcurrentLinkedQueue<Future<?>>();
 	private static ExecutorService service;
@@ -21,8 +23,10 @@ public class QuickSorterConcurrencyQuickSort implements Sorter {
 	private int[] arr;
 	private boolean calc = false;
 
-	public QuickSorterConcurrencyQuickSort(Logger logger) {
+	public QuickSorterConcurrencyQuickSortImpl(Logger logger,
+			PivotCalculator pivot) {
 		this.logger = logger;
+		this.pivot = pivot;
 		calc = true;
 	}
 
@@ -35,7 +39,7 @@ public class QuickSorterConcurrencyQuickSort implements Sorter {
 		}
 		// logger.log(Level.INFO, "Length: " + arr.length + " | elementsingle: "
 		// + ELEMENTCOUNT_SEQUENTIALSORTING);
-		quickSortParallel(arr, 0, arr.length - 1);
+		quickSort(arr, 0, arr.length - 1);
 		// quickSortSequential(arr, 0, arr.length - 1);
 		return arr;
 	}
@@ -51,9 +55,9 @@ public class QuickSorterConcurrencyQuickSort implements Sorter {
 		}
 	}
 
-	public void quickSortParallel(final int[] arr, final int left,
+	public void quickSort(final int[] arr, final int left,
 			final int right) {
-		quickSortParallelStart(arr, left, right);
+		quickSortParallel(arr, left, right);
 		// Waiting for good news
 		for (Future<?> f; (f = running.poll()) != null;) {
 			try {
@@ -72,7 +76,7 @@ public class QuickSorterConcurrencyQuickSort implements Sorter {
 		// Good news!
 	}
 
-	public void quickSortParallelStart(final int[] arr, final int left,
+	public void quickSortParallel(final int[] arr, final int left,
 			final int right) {
 		// System.out.println("Groeße : " + running.size());
 		if (right > left) {
@@ -87,7 +91,7 @@ public class QuickSorterConcurrencyQuickSort implements Sorter {
 					public void run() {
 						// System.out.println("Starting thread: " + " from "
 						// + left + " to " + (pivot - 1));
-						quickSortParallelStart(arr, left, pivot - 1);
+						quickSortParallel(arr, left, pivot - 1);
 					}
 				};
 				Runnable r2 = new Runnable() {
@@ -95,7 +99,7 @@ public class QuickSorterConcurrencyQuickSort implements Sorter {
 					public void run() {
 						// System.out.println("Starting thread: " + " from "
 						// + (pivot + 1) + " to " + right);
-						quickSortParallelStart(arr, pivot + 1, right);
+						quickSortParallel(arr, pivot + 1, right);
 					}
 				};
 				// Future representation der runnables zur queue hinzufuegen
@@ -108,7 +112,7 @@ public class QuickSorterConcurrencyQuickSort implements Sorter {
 	}
 
 	private int divide(int[] arr, int links, int rechts) {
-		int pivotelement = arr[rechts];
+		int pivotelement = pivot.getPivot(arr, links, rechts);
 		int l = links;
 		int r = rechts;
 		do {

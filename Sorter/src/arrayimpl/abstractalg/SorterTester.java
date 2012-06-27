@@ -22,26 +22,25 @@ import arrayimpl.sorterimpl.SortierenDurchAuswaehlenImpl;
 import arrayimpl.sorterimpl.SortierenDurchEinfuegenImpl;
 
 public class SorterTester extends TestCase {
-
 	private List<Integer> valueCounts = new ArrayList<Integer>();
 	private static final long MAXVALUE = Integer.MAX_VALUE;
 	private static final long MINVALUE = Integer.MIN_VALUE;
-	private static final long PROBES = 5;
+	private static final long PROBES = 1;
 
 	private static final Logger logger = Logger.getLogger("logger");
 
 	public SorterTester() {
 		valueCounts = new ArrayList<Integer>();
-		valueCounts.add(new Integer(1000));
-		valueCounts.add(new Integer(10000));
-		valueCounts.add(new Integer(100000));
-		valueCounts.add(new Integer(1000000));
-//		valueCounts.add(new Integer(3000000));
-//		valueCounts.add(new Integer(5000000));
-//		valueCounts.add(new Integer(10000000));
-//		valueCounts.add(new Integer(20000000));
-//		valueCounts.add(new Integer(50000000));
-//		valueCounts.add(new Integer(100000000));
+		// valueCounts.add(new Integer(1000));
+		// valueCounts.add(new Integer(10000));
+		// valueCounts.add(new Integer(100000));
+		// valueCounts.add(new Integer(1000000));
+		// valueCounts.add(new Integer(3000000));
+		// valueCounts.add(new Integer(5000000));
+//		valueCounts.add(new Integer(10000000)); // Zehnmillionen
+		// valueCounts.add(new Integer(20000000));
+		// valueCounts.add(new Integer(50000000));
+		 valueCounts.add(new Integer(100000000));
 		// valueCounts.add(new Integer(50000000));
 		// valueCounts.add(new Integer(70000000));
 		// valueCounts.add(new Integer(90000000));
@@ -55,22 +54,74 @@ public class SorterTester extends TestCase {
 	@Test
 	public void testSorter() {
 		Map<String, Sorter> sortermap = new HashMap<String, Sorter>();
-		 sortermap.put("quicksorter norm pr", new QuickSortImpl(
-		 new PivotRightImpl()));
-//		sortermap.put("quicksortparalel pr",
-//				new QuickSorterConcurrencyQuickSortImpl(logger,
-//						new PivotRightImpl()));
+		sortermap.put("aquicksorter normal pivot rechts", new QuickSortImpl(
+				new PivotRightImpl()));
+		// sortermap.put("quicksortparalel pr",
+		// new QuickSorterConcurrencyQuickSortImpl(logger,
+		// new PivotRightImpl()));
 		// sortermap.put("quicksorter norm pm", new QuickSortImpl(
 		// new PivotMedianImpl()));
-		sortermap.put("quicksortparalel pm",
-				new QuickSorterConcurrencyQuickSortImpl(logger,
+		// sortermap.put("quicksortparalel pm",
+		// new QuickSorterConcurrencyQuickSortImpl(logger,
+		// new PivotRightImpl()));
+//		sortermap.put("quicksortparalel pm 20p 100\t",
+//				new QuickSorterConcurrencyQuickSortImpl(20, 1,
+//						new PivotRightImpl()));
+		
+		sortermap.put("quicksortparalel pm 2p 5000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(2, 5000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 2p 10000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(2, 10000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 2p 50000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(2, 50000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 2p 100000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(2, 100000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 2p 1000000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(2, 1000000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 5p 5000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(5, 5000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 5p 10000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(5, 10000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 5p 50000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(5, 50000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 5p 100000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(5, 100000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 5p 1000000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(5, 1000000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 20p 3000\t",
+				new QuickSorterConcurrencyQuickSortImpl(20, 3000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 20p 5000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(20, 5000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 20p 10000t\t",
+				new QuickSorterConcurrencyQuickSortImpl(20, 10000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 20p 50000\t",
+				new QuickSorterConcurrencyQuickSortImpl(20, 50000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 20p 100000\t",
+				new QuickSorterConcurrencyQuickSortImpl(20, 100000,
+						new PivotRightImpl()));
+		sortermap.put("quicksortparalel pm 20p 1000000\t",
+				new QuickSorterConcurrencyQuickSortImpl(20, 1000000,
 						new PivotRightImpl()));
 		// sortermap.put("quicksorter three", new QuickSorterThreeWayImpl(
 		// new PivotRightImpl()));
-//		sortermap.put("heapsorter     ", new HeapSorterImpl());
-//		sortermap.put("bubblesorter   ", new BubbleSorterImpl());
-//		sortermap.put("sortieren d einf", new SortierenDurchEinfuegenImpl());
-//		sortermap.put("sortieren d aus", new SortierenDurchAuswaehlenImpl());
+		// sortermap.put("heapsorter     ", new HeapSorterImpl());
+		// sortermap.put("bubblesorter   ", new BubbleSorterImpl());
+		// sortermap.put("sortieren d einf", new SortierenDurchEinfuegenImpl());
+		// sortermap.put("sortieren d aus", new SortierenDurchAuswaehlenImpl());
 		for (Integer i : valueCounts) {
 			executeSorter(sortermap, generateList(i));
 		}
@@ -84,7 +135,7 @@ public class SorterTester extends TestCase {
 			for (int i = 0; i < PROBES; i++) {
 				long milliseconds = sortAndGetMillis(sorterentry.getValue(),
 						Arrays.copyOf(integerarr, integerarr.length));
-				// integerarr);
+//				 integerarr);
 				System.out.print(milliseconds + "ms\t");
 			}
 			System.out.println();
@@ -113,15 +164,15 @@ public class SorterTester extends TestCase {
 		// System.out.println("solution: " + Arrays.toString(sorted));
 		// System.out.println("sorted  : " + Arrays.toString(sort));
 		// assertTrue(Arrays.equals(sorted, sort));
-		int old = Integer.MIN_VALUE;
-		for (int i = 0; i < sort.length; i++) {
-			int long1 = sort[i];
-			// System.out.println(sorter.getClass().getName());
-			// System.out.println(long1 + " - " + reference.get(i));
-			assertTrue(old + " doesn't seem to be smaller than " + long1,
-					old <= long1);
-			old = long1;
-		}
+		// int old = Integer.MIN_VALUE;
+		// for (int i = 0; i < sort.length; i++) {
+		// int long1 = sort[i];
+		// // System.out.println(sorter.getClass().getName());
+		// // System.out.println(long1 + " - " + reference.get(i));
+		// assertTrue(old + " doesn't seem to be smaller than " + long1,
+		// old <= long1);
+		// old = long1;
+		// }
 		return sortstop - sortstart;
 	}
 }

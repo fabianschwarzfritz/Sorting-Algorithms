@@ -30,6 +30,15 @@ public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 		calc = true;
 	}
 
+	public QuickSorterConcurrencyQuickSortImpl(int poolcount,
+			int eLEMENTCOUNT_SEQUENTIALSORTING, PivotCalculator pivot) {
+		super();
+		ELEMENTCOUNT_SEQUENTIALSORTING = eLEMENTCOUNT_SEQUENTIALSORTING;
+		this.pivot = pivot;
+		service = Executors.newFixedThreadPool(poolcount);
+		calc = false;
+	}
+
 	@Override
 	public int[] sort() {
 		if (calc) {
@@ -55,8 +64,7 @@ public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 		}
 	}
 
-	public void quickSort(final int[] arr, final int left,
-			final int right) {
+	public void quickSort(final int[] arr, final int left, final int right) {
 		quickSortParallel(arr, left, right);
 		// Waiting for good news
 		for (Future<?> f; (f = running.poll()) != null;) {
@@ -65,8 +73,9 @@ public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 				// thread
 				// System.out.println("waiting for queuehead");
 				f.get();
-				// System.out.println("Got ready thread: queue size: "
-				// + running.size());
+//				System.out.println("Got ready thread: queue size: "
+//						+ running.size());
+//				System.out.println(service.);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {

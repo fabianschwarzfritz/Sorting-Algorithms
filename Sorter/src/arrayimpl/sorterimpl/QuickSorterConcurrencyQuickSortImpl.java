@@ -75,7 +75,6 @@ public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 				f.get();
 //				System.out.println("Got ready thread: queue size: "
 //						+ running.size());
-//				System.out.println(service.);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			} catch (ExecutionException e) {

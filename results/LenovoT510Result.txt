@@ -1,0 +1,7 @@
+** Fabian Schwarz-Fritz  **
+Poolsize: 20 |  Sucht Sequentiell ab 20000 elementen
+
+Generating value list with count 1000000
+Listsize 1000000 -- Werte von 1 bis 100: 
+	quicksortsequentiell	: 	5627ms	6157ms	e5591ms	5517ms	5527ms	5432ms	5461ms	5500ms	5513ms	5501ms	
+	quicksort parallel	: 	2741ms	2736ms	2749ms	2776ms	2765ms	2736ms	2733ms	2771ms	2722ms	2772ms	

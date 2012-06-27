@@ -30,10 +30,6 @@ public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 
 	private int[] arr;
 
-	public QuickSorterConcurrencyQuickSortImpl(PivotCalculator pivot) {
-		this.pivot = pivot;
-	}
-
 	public QuickSorterConcurrencyQuickSortImpl(int poolcount,
 			int eLEMENTCOUNT_SEQUENTIALSORTING, PivotCalculator pivot) {
 		super();

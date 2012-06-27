@@ -1,0 +1,56 @@
+\documentclass[12pt,twoside,a4paper]{article}     
+% deutsche Silbentrennung
+\usepackage[ngerman]{babel}
+% wegen deutschen Umlauten
+\usepackage[ansinew]{inputenc}
+\usepackage{lmodern}
+    
+\title{Parallelisierung des Sortieralgorithmus Quicksort}
+\author{
+Luisenstrasse 93\\
+76137 Karlsruhe\\
+fabian@schwarz-fritz.de}
+\begin{document}
+\maketitle
+\newpage
+\section{Quicksort parallelisiert}
+Das Sortieren mit Quicksort ist im Gegensatz zu anderen Algorithmen schon ausserordentlich schnell, und sehr performant. In Zeiten von Mehrkernigen Rechnern, multicore CPU's und features wie Hyperthreading kann die Geschwindigkeit des Quicksort Algorithmus jedoch noch erhoeht werden. Im Folgenden werden alle Ideen zur Parallelisierung des Quicksort Algorithmus beschreiben.
+
+\section{Anforderungen an einen Sortieralgorithmus}
+Die Folgenden Basisanforderung sollte jeder Sortieralgorithmus erfuellen:
+\begin{itemize}
+  \item Uebergeben einer beliebig grossen Liste, welche beliebige (gueltige) Elemente enhaelt
+  \item Terminierung
+  \item Eventuell soll der Sortieralgorithmus stabil sein
+  \item Der Sortieralgorithmus kann sowohl in-place, als auch oder nicht in-place sortieren
+  \item Rueckgabe einer sortierten Liste
+\end{itemize}
+An einen parallelen Quicksort kommen doch noch zusaetzliche Anforderungen:
+\begin{itemize}
+	\item Verwendung mehrerer Prozessoren
+	\item Aufteilung der gegebenen Liste auf verschidene Prozeduren und deren Threads.
+	\item Effektive Verwaltung der Threads (beispielsweise durch einen Thread Pool)
+	\item Effektive Lastverteilung (Load Balancing)
+	\item Kein Kommunikations bzw. Organisationsoverhead.
+	\item Eine Mischung der Algorithmen kann erfolgen, wenn dies die Geschwindigkeit des Algorithmus erhoeht.
+\end{itemize}
+\section{Sequentieller Quicksort}
+Zuerst eine Beschreibung des sequentiellem Quicksort. Diese ist parallelisiert spaeter leichter durch Rekursion realisierbar. Deshalb wird im folgenden von einer rekursiven Implementierung des Algorithmus ausgegangen. 
+\begin{itemize}
+	\item Pivotelement waehlen. Hierzu kann beispielsweise der Median des rechtesten, mittleren und linkesten Elements, oder einfach nur das rechteste Element verwendet werden.
+	\item Die Liste wird nun in zwei Teillisten aufgeteilt. Alle Elemente, welche groesser oder gleich dem Pivotelement sind landen auf der rechten Seite des Pivotelements, und alle elemente, welche kleiner dem Pivoetelement sind landen auf der linken Seite des Pivotelements.
+	\item Rekursiver Aufruf der beiden neuen Teillisten.
+\end{itemize}
+
+\section{Paralleler Quicksort}
+Die Tatsache, dass der sequentielle Quicksort nach dem Prinzip divide and conquer, also teile und herrsche vorgeht, legt nahe die last der entstehenden rekursiven Aufrufe auf mehrere Threads zu verteilen.
+Ausserdem sind die bereiche in denen rekursiv sortiert wird getrennt d.h. dass das selbe Element nur in einem der beiden (durch linke und rechte schranke eingegrenztem) Teilbereich liegt.
+Jeder Thread haelt also einen Listenteil. Sobald der Prozessor den Thread abgearbeitet hat, ist diese Teilliste sortiert.
+
+\subsection{Implementierung von Fabian}
+\paragraph{Aufteilung nach Pivotelement}
+Das erste Problem bei der Parallelisierung de Quicksort liegt in der Tatsache, dass der Algorithmus die Liste nie (oder wenn nur durch Zufall) in zwei gleich lange Listen zerlegt. Im Extremfall erhaelt man bei eine Eingabeliste von n nach dem Aufruf der Teilmethode eine Liste von 1 nach n-1. Doch nur mit einer nahezu Halbierung der Liste, kann man die Sortierung der resultierenden neuen Teillisten in einen eigenen Prozess uebergeben. Wenn die Teillisten zu unsymmetrisch sind, macht die Aufteilung in verschiedenen Threads kaum noch Sinn. Wie im Beispiel oben beschreiben kann die andere Liste kann im also leer sein. Diese Unsymmetrie der Listen liegt an an der Wahl des Pivotelements. In der einfachen Version des Quicksort wird das Pivotelement immer an der rechten Seite der zu sortierenden Teilliste gewaehlt. Eine moegliche Verbesserung ist die Wahl des Medians der Elemente ganz links, in der mitte und rechts. Doch auch hier wird eine nahezu Halbierung der Liste nicht garantiert.
+\paragraph{Mischung aus Sequentiellem und Parallelem Algorithmus}
+Die Idee daher ist, die Verwendung von Parallelem Quicksort und von Sequentiellem Quicksort. Hierbei soll ab einem bestimmten Grenzwert die Liste nicht mehr parallel sortiert werden, sondern im gleichen Thread sequentiell sortiert werden. Hierbei ist zu beachten, dass die Wahl diese Grenzwertes eine wichtige Rolle fuer die resultierende Zeit spielt.
+
+\end{document}

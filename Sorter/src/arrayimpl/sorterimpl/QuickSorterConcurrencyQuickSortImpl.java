@@ -5,56 +5,78 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import arrayimpl.abstractalg.PivotCalculator;
 import arrayimpl.abstractalg.Sorter;
 
 public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 
-	private static Logger logger;
-	private int ELEMENTCOUNT_SEQUENTIALSORTING;
 	private PivotCalculator pivot;
 
+	/*
+	 * Elementzahl, ab welcher noch parrallel sortier werden soll. Ist diese
+	 * Elementzahl keiner, wird sequentiell sortiert
+	 */
+	private int elementcount_sequentialQuicksort;
+
+	/*
+	 * Queue für threads in der (synchronisierten) Schlagne. Die Elemente der
+	 * Schlange sind vom type Future. (doc:
+	 * "A Future represents the result of an asynchronous computation")
+	 */
 	private static ConcurrentLinkedQueue<Future<?>> running = new ConcurrentLinkedQueue<Future<?>>();
+	/* Executor service, welcher den threadpool enhält */
 	private static ExecutorService service;
 
 	private int[] arr;
-	private boolean calc = false;
 
-	public QuickSorterConcurrencyQuickSortImpl(Logger logger,
-			PivotCalculator pivot) {
-		this.logger = logger;
+	public QuickSorterConcurrencyQuickSortImpl(PivotCalculator pivot) {
 		this.pivot = pivot;
-		calc = true;
 	}
 
 	public QuickSorterConcurrencyQuickSortImpl(int poolcount,
 			int eLEMENTCOUNT_SEQUENTIALSORTING, PivotCalculator pivot) {
 		super();
-		ELEMENTCOUNT_SEQUENTIALSORTING = eLEMENTCOUNT_SEQUENTIALSORTING;
+		elementcount_sequentialQuicksort = eLEMENTCOUNT_SEQUENTIALSORTING;
 		this.pivot = pivot;
+		// Threadpool mit fixer anzahl
 		service = Executors.newFixedThreadPool(poolcount);
-		calc = false;
 	}
 
 	@Override
 	public int[] sort() {
-		if (calc) {
-			int processors = Runtime.getRuntime().availableProcessors();
-			service = Executors.newFixedThreadPool(processors);
-			ELEMENTCOUNT_SEQUENTIALSORTING = arr.length / processors;
+		quickSortParallel(arr, 0, arr.length - 1);
+		// Front element der queue holen, falls eines da.
+		for (Future<?> f; (f = running.poll()) != null;) {
+			try {
+				// Erfolgreich ein Element aus der queue geholt, und ab geht der
+				// System.out.println("waiting for queuehead");
+				f.get();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			}
 		}
-		// logger.log(Level.INFO, "Length: " + arr.length + " | elementsingle: "
-		// + ELEMENTCOUNT_SEQUENTIALSORTING);
-		quickSort(arr, 0, arr.length - 1);
-		// quickSortSequential(arr, 0, arr.length - 1);
+		// Good news! - alle runnables abgearbeitet - die liste muss hier
+		// sortiert sein
+		// FIXME terminierung checken
+		// B.S. Mail:
+		// "Die threads müssen dann aber terminieren, nachdem sie verzweigt haben (das könnte etwas tricky werden)."
 		return arr;
 	}
 
 	/**
-	 * Startet sequentiell den algorithmus
+	 * Startet den Sequentiellen quicksort (wie gewohnt). Nach Auführung sind
+	 * die Elemente von <code>left</code> bis <code>right</code> auf dem
+	 * gegebenen array <code>arr</code> sortiert.
+	 * 
+	 * @param arr
+	 *            Das array auf dem der quicksort ausgeführt werden soll
+	 * @param left
+	 *            Das linkeste Element zwischen dem gesucht werden soll
+	 * @param right
+	 *            Das rechteste Element zwischen dem gesucht werden soll
 	 */
 	private void quickSortSequential(int[] arr, int left, int right) {
 		if (right > left) {
@@ -64,33 +86,25 @@ public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 		}
 	}
 
-	public void quickSort(final int[] arr, final int left, final int right) {
-		quickSortParallel(arr, left, right);
-		// Waiting for good news
-		for (Future<?> f; (f = running.poll()) != null;) {
-			try {
-				// Erfolgreich ein Element aus der queue geholt, und ab geht der
-				// thread
-				// System.out.println("waiting for queuehead");
-				f.get();
-//				System.out.println("Got ready thread: queue size: "
-//						+ running.size());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				e.printStackTrace();
-			}
-		}
-		// Good news!
-	}
-
+	/**
+	 * Startet den Sequentiellen quicksort (wie gewohnt). Nach Auführung sind
+	 * die Elemente von <code>left</code> bis <code>right</code> auf dem
+	 * gegebenen array <code>arr</code> sortiert.
+	 * 
+	 * @param arr
+	 *            Das array auf dem der quicksort ausgeführt werden soll
+	 * @param left
+	 *            Das linkeste Element zwischen dem gesucht werden soll
+	 * @param right
+	 *            Das rechteste Element zwischen dem gesucht werden soll
+	 */
 	public void quickSortParallel(final int[] arr, final int left,
 			final int right) {
 		// System.out.println("Groeße : " + running.size());
 		if (right > left) {
 			final int pivot = divide(arr, left, right);
 			// Sortiere sequenitell
-			if (right - left < ELEMENTCOUNT_SEQUENTIALSORTING) {
+			if (right - left < elementcount_sequentialQuicksort) {
 				quickSortSequential(arr, left, right);
 			} else {
 				// Parallelisiere weiter, da elementanzahl groß
@@ -155,8 +169,12 @@ public class QuickSorterConcurrencyQuickSortImpl implements Sorter {
 		arr[j] = temp;
 	}
 
-	@Override
+	/**
+	 * @param arr
+	 *            the arr to set
+	 */
 	public void setArr(int[] arr) {
 		this.arr = arr;
 	}
+
 }

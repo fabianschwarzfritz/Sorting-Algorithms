@@ -1,4 +1,4 @@
-package arrayimpl.sorterimpl;
+package arrayimpl.sorterimpl.quickimpl;
 
 import arrayimpl.abstractalg.AbstractSorter;
 import arrayimpl.abstractalg.PivotCalculator;

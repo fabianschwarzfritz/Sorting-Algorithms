@@ -9,9 +9,9 @@ import org.junit.Test;
 import arrayimpl.sorterimpl.BubbleSorterImpl;
 import arrayimpl.sorterimpl.HeapSorterImpl;
 import arrayimpl.sorterimpl.PivotRightImpl;
-import arrayimpl.sorterimpl.QuickSortImpl;
 import arrayimpl.sorterimpl.SortierenDurchAuswaehlenImpl;
 import arrayimpl.sorterimpl.SortierenDurchEinfuegenImpl;
+import arrayimpl.sorterimpl.quickimpl.QuickSortImpl;
 
 public class SorterTableTester extends SorterTester {
 	@Override

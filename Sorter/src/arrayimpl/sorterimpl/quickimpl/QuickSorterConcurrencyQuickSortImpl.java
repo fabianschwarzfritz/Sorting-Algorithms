@@ -1,4 +1,4 @@
-package arrayimpl.sorterimpl;
+package arrayimpl.sorterimpl.quickimpl;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;

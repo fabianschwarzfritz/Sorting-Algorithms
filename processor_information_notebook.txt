@@ -1,0 +1,10 @@
+﻿http://ark.intel.com/products/43544/Intel-Core-i5-540M-Processor-%283M-Cache-2_53-GHz%29
+
+2.53 GHz - Hyperthreading: 3.066 GHz - cache: 3 MB - Max Memory Bandwidth: 17.1 GB/s
+
+-- 
+
+$ java -version
+java version "1.6.0_22"
+Java(TM) SE Runtime Environment (build 1.6.0_22-b04)
+Java HotSpot(TM) Client VM (build 17.1-b03, mixed mode)

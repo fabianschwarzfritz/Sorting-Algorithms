@@ -40,6 +40,22 @@ public class SorterTester extends TestCase {
 		return arr;
 	}
 
+	protected int[] generateSortedList(int valuecount) {
+		int[] generateList = generateList(valuecount);
+		Arrays.sort(generateList);
+		return generateList;
+	}
+
+	protected int[] generateInverseSortedList(int valuecount) {
+		int[] generateList = generateList(valuecount);
+		Arrays.sort(generateList);
+		int[] result = new int[valuecount];
+		for (int i = result.length - 1; i >= 0; i--) {
+			result[i] = generateList[i];
+		}
+		return generateList;
+	}
+
 	private long sortAndGetMillis(Sorter sorter, int[] shuffledList) {
 		// System.out.println("Sorting: " + Arrays.toString(shuffledList));
 		sorter.setArr(shuffledList);

@@ -1,0 +1,84 @@
+** --  Fabian Schwarz-Fritz  --  **
+** quicksort comparison    **
+Poolsize: 20 |  Sucht Sequentiell ab 20000 elementen
+
+Generating value list with count 1000000
+Listsize 1000000 -- Werte von 1 bis 100: 
+	quicksortsequentiell	: 	6168ms	6719ms	6262ms	6428ms	6271ms	
+	quicksort parallel	: 	3337ms	3275ms	3229ms	3256ms	3270ms	
+** comparison for xsl    **
+Shuffled
+Generating value list with count 1000
+Listsize 1000 -- Werte von 1 bis 100: 
+	Quicksort      : 	0ms	0ms	0ms	0ms	0ms	
+	sortieren d aus: 	6ms	2ms	1ms	1ms	1ms	
+	bubblesorter   : 	7ms	2ms	2ms	2ms	1ms	
+	heapsorter     : 	1ms	1ms	1ms	0ms	1ms	
+	sortieren d einf: 	5ms	0ms	0ms	1ms	0ms	
+	Shellsorter    : 	4ms	10ms	0ms	1ms	1ms	
+Generating value list with count 10000
+Listsize 10000 -- Werte von 1 bis 100: 
+	Quicksort      : 	2ms	2ms	2ms	2ms	3ms	
+	sortieren d aus: 	133ms	130ms	130ms	134ms	129ms	
+	bubblesorter   : 	196ms	195ms	194ms	210ms	199ms	
+	heapsorter     : 	1ms	1ms	2ms	2ms	1ms	
+	sortieren d einf: 	16ms	16ms	16ms	18ms	16ms	
+	Shellsorter    : 	47ms	47ms	46ms	45ms	46ms	
+Generating value list with count 100000
+Listsize 100000 -- Werte von 1 bis 100: 
+	Quicksort      : 	77ms	75ms	73ms	75ms	75ms	
+	sortieren d aus: 	13016ms	12993ms	13131ms	13120ms	13190ms	
+	bubblesorter   : 	19626ms	19536ms	19625ms	19548ms	19723ms	
+	heapsorter     : 	12ms	12ms	12ms	11ms	12ms	
+	sortieren d einf: 	1699ms	1702ms	1760ms	1798ms	1868ms	
+	Shellsorter    : 	4737ms	4728ms	4803ms	4691ms	4678ms	
+sorted
+Generating value list with count 1000
+Listsize 1000 -- Werte von 1 bis 100: 
+	Quicksort      : 	1ms	1ms	1ms	1ms	0ms	
+	sortieren d aus: 	1ms	1ms	1ms	2ms	1ms	
+	bubblesorter   : 	0ms	1ms	0ms	1ms	0ms	
+	heapsorter     : 	0ms	0ms	0ms	0ms	0ms	
+	sortieren d einf: 	0ms	0ms	0ms	0ms	0ms	
+	Shellsorter    : 	0ms	1ms	0ms	0ms	0ms	
+Generating value list with count 10000
+Listsize 10000 -- Werte von 1 bis 100: 
+	Quicksort      : 	74ms	76ms	73ms	73ms	74ms	
+	sortieren d aus: 	132ms	124ms	127ms	127ms	138ms	
+	bubblesorter   : 	33ms	39ms	32ms	33ms	34ms	
+	heapsorter     : 	1ms	1ms	1ms	1ms	1ms	
+	sortieren d einf: 	0ms	0ms	0ms	0ms	0ms	
+	Shellsorter    : 	1ms	0ms	0ms	0ms	0ms	
+Generating value list with count 100000
+Listsize 100000 -- Werte von 1 bis 100: 
+	Quicksort      : 	7608ms	7463ms	7386ms	7338ms	7513ms	
+	sortieren d aus: 	13094ms	13101ms	13084ms	13147ms	12979ms	
+	bubblesorter   : 	3623ms	3510ms	3452ms	3482ms	3444ms	
+	heapsorter     : 	9ms	9ms	9ms	10ms	9ms	
+	sortieren d einf: 	0ms	0ms	0ms	0ms	1ms	
+	Shellsorter    : 	1ms	2ms	1ms	2ms	1ms	
+inverse
+Generating value list with count 1000
+Listsize 1000 -- Werte von 1 bis 100: 
+	Quicksort      : 	1ms	1ms	1ms	0ms	0ms	
+	sortieren d aus: 	1ms	1ms	1ms	1ms	2ms	
+	bubblesorter   : 	0ms	0ms	1ms	0ms	1ms	
+	heapsorter     : 	0ms	0ms	0ms	0ms	0ms	
+	sortieren d einf: 	0ms	0ms	0ms	0ms	0ms	
+	Shellsorter    : 	0ms	1ms	0ms	0ms	0ms	
+Generating value list with count 10000
+Listsize 10000 -- Werte von 1 bis 100: 
+	Quicksort      : 	82ms	99ms	88ms	73ms	69ms	
+	sortieren d aus: 	135ms	126ms	123ms	127ms	129ms	
+	bubblesorter   : 	36ms	33ms	41ms	33ms	36ms	
+	heapsorter     : 	0ms	0ms	0ms	0ms	0ms	
+	sortieren d einf: 	0ms	0ms	0ms	0ms	0ms	
+	Shellsorter    : 	0ms	0ms	0ms	0ms	1ms	
+Generating value list with count 100000
+Listsize 100000 -- Werte von 1 bis 100: 
+	Quicksort      : 	7296ms	7452ms	7647ms	7050ms	7509ms	
+	sortieren d aus: 	13218ms	12941ms	12864ms	12965ms	13187ms	
+	bubblesorter   : 	3742ms	3563ms	3640ms	3584ms	3847ms	
+	heapsorter     : 	10ms	9ms	9ms	9ms	9ms	
+	sortieren d einf: 	1ms	0ms	0ms	0ms	1ms	
+	Shellsorter    : 	3ms	1ms	2ms	1ms	9ms	

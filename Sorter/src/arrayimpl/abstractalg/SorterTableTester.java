@@ -34,8 +34,17 @@ public class SorterTableTester extends SorterTester {
 		sortermap.put("Quicksort      ",
 				new QuickSortImpl(new PivotRightImpl()));
 		sortermap.put("Shellsorter    ", new ShellSorterImpl());
+		System.out.println("Shuffled");
 		for (Integer i : valueCounts) {
 			executeSorter(sortermap, generateList(i));
+		}
+		System.out.println("sorted");
+		for (Integer i : valueCounts) {
+			executeSorter(sortermap, generateSortedList(i));
+		}
+		System.out.println("inverse");
+		for (Integer i : valueCounts) {
+			executeSorter(sortermap, generateInverseSortedList(i));
 		}
 	}
 }

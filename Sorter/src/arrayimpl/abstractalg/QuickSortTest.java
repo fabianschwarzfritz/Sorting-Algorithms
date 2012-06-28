@@ -24,7 +24,7 @@ public class QuickSortTest extends SorterTester {
 		valueCounts.add(new Integer(1000000)); /* Zehnmillionen */
 		MINVALUE = 1;
 		MAXVALUE = 100;
-		PROBES = 10;
+		PROBES = 5;
 	}
 
 	@Test

@@ -10,8 +10,8 @@ import junit.framework.TestCase;
 
 public class SorterTester extends TestCase {
 	protected List<Integer> valueCounts = new ArrayList<Integer>();
-	protected static long MAXVALUE = 1;
-	protected static long MINVALUE = 100;
+	protected static long MAXVALUE = 100;
+	protected static long MINVALUE = 1;
 	protected static long PROBES = 5;
 
 	private static final Logger logger = Logger.getLogger("logger");

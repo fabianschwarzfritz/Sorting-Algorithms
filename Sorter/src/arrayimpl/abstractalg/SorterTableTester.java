@@ -6,9 +6,11 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import arrayimpl.sorterimpl.AusgeglichenesMischenImpl;
 import arrayimpl.sorterimpl.BubbleSorterImpl;
 import arrayimpl.sorterimpl.HeapSorterImpl;
 import arrayimpl.sorterimpl.PivotRightImpl;
+import arrayimpl.sorterimpl.ShellSorterImpl;
 import arrayimpl.sorterimpl.SortierenDurchAuswaehlenImpl;
 import arrayimpl.sorterimpl.SortierenDurchEinfuegenImpl;
 import arrayimpl.sorterimpl.quickimpl.QuickSortImpl;
@@ -31,6 +33,7 @@ public class SorterTableTester extends SorterTester {
 		sortermap.put("sortieren d aus", new SortierenDurchAuswaehlenImpl());
 		sortermap.put("Quicksort      ",
 				new QuickSortImpl(new PivotRightImpl()));
+		sortermap.put("Shellsorter    ", new ShellSorterImpl());
 		for (Integer i : valueCounts) {
 			executeSorter(sortermap, generateList(i));
 		}

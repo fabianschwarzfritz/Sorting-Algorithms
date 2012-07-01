@@ -10,9 +10,9 @@ public class Main {
 		QuickSortTest test = new QuickSortTest();
 		test.setName("testMain");
 		test.runBare();
-		System.out.println("** comparison for xsl    **");
-		SorterTableTester tester = new SorterTableTester();
-		tester.setName("testSorter");
-		tester.runBare();
+//		System.out.println("** comparison for xsl    **");
+//		SorterTableTester tester = new SorterTableTester();
+//		tester.setName("testSorter");
+//		tester.runBare();
 	}
 }

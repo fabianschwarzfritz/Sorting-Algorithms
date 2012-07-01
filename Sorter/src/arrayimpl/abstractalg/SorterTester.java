@@ -46,14 +46,15 @@ public class SorterTester extends TestCase {
 		return generateList;
 	}
 
-	protected int[] generateInverseSortedList(int valuecount) {
+	public int[] generateInverseSortedList(int valuecount) {
 		int[] generateList = generateList(valuecount);
 		Arrays.sort(generateList);
 		int[] result = new int[valuecount];
-		for (int i = result.length - 1; i >= 0; i--) {
-			result[i] = generateList[i];
+		for (int i = 0; i < generateList.length; i++) {
+			result[i] = generateList[generateList.length - i - 1];
 		}
-		return generateList;
+		Arrays.toString(result);
+		return result;
 	}
 
 	private long sortAndGetMillis(Sorter sorter, int[] shuffledList) {

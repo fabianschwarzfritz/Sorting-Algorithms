@@ -21,6 +21,7 @@ public class QuickSortTest extends SorterTester {
 	@Override
 	protected void setUp() throws Exception {
 		valueCounts = new ArrayList<Integer>();
+		valueCounts.add(new Integer(100000)); 
 		valueCounts.add(new Integer(1000000)); /* Zehnmillionen */
 		MINVALUE = 1;
 		MAXVALUE = 100;
@@ -41,6 +42,7 @@ public class QuickSortTest extends SorterTester {
 		sortermap.put("quicksort parallel\t",
 				new QuickSorterConcurrencyQuickSortImpl(poolsize,
 						elementcountvalue, new PivotRightImpl()));
+		System.out.println("Shuffled");
 		for (Integer i : valueCounts) {
 			executeSorter(sortermap, generateList(i));
 		}

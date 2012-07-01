@@ -66,19 +66,19 @@ public class SorterTester extends TestCase {
 		assertEquals(shuffledList.length, sort.length);
 		int[] sorted = shuffledList.clone();
 		Arrays.sort(sorted);
-		// System.out.println("\n--");
-		// System.out.println("solution: " + Arrays.toString(sorted));
-		// System.out.println("sorted  : " + Arrays.toString(sort));
-		// assertTrue(Arrays.equals(sorted, sort));
-		// int old = Integer.MIN_VALUE;
-		// for (int i = 0; i < sort.length; i++) {
-		// int long1 = sort[i];
-		// // System.out.println(sorter.getClass().getName());
-		// // System.out.println(long1 + " - " + reference.get(i));
-		// assertTrue(old + " doesn't seem to be smaller than " + long1,
-		// old <= long1);
-		// old = long1;
-		// }
+//		 System.out.println("\n--");
+//		 System.out.println("solution: " + Arrays.toString(sorted));
+//		 System.out.println("sorted  : " + Arrays.toString(sort));
+//		 assertTrue(Arrays.equals(sorted, sort));
+		 int old = Integer.MIN_VALUE;
+		 for (int i = 0; i < sort.length; i++) {
+		 int long1 = sort[i];
+		 // System.out.println(sorter.getClass().getName());
+		 // System.out.println(long1 + " - " + reference.get(i));
+		 assertTrue(old + " doesn't seem to be smaller than " + long1,
+		 old <= long1);
+		 old = long1;
+		 }
 		return sortstop - sortstart;
 	}
 }

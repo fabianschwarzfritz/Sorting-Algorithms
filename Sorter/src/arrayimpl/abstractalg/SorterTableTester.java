@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import arrayimpl.sorterimpl.AusgeglichenesMischenImpl;
 import arrayimpl.sorterimpl.BubbleSorterImpl;
+import arrayimpl.sorterimpl.BucketSorterImpl;
 import arrayimpl.sorterimpl.HeapSorterImpl;
 import arrayimpl.sorterimpl.PivotRightImpl;
 import arrayimpl.sorterimpl.ShellSorterImpl;
@@ -22,18 +23,20 @@ public class SorterTableTester extends SorterTester {
 		valueCounts.add(new Integer(1000));
 		valueCounts.add(new Integer(10000));
 		valueCounts.add(new Integer(100000));
+//		super.MAXVALUE = 10000000;
 	}
 
 	@Test
 	public void testSorter() {
 		Map<String, Sorter> sortermap = new HashMap<String, Sorter>();
-		sortermap.put("heapsorter     ", new HeapSorterImpl());
-		sortermap.put("bubblesorter   ", new BubbleSorterImpl());
-		sortermap.put("sortieren d einf", new SortierenDurchEinfuegenImpl());
-		sortermap.put("sortieren d aus", new SortierenDurchAuswaehlenImpl());
-		sortermap.put("Quicksort      ",
-				new QuickSortImpl(new PivotRightImpl()));
-		sortermap.put("Shellsorter    ", new ShellSorterImpl());
+		 sortermap.put("heapsorter     ", new HeapSorterImpl());
+		 sortermap.put("bubblesorter   ", new BubbleSorterImpl());
+		 sortermap.put("sortieren d einf", new SortierenDurchEinfuegenImpl());
+		 sortermap.put("sortieren d aus", new SortierenDurchAuswaehlenImpl());
+		 sortermap.put("Quicksort      ",
+		 new QuickSortImpl(new PivotRightImpl()));
+		 sortermap.put("Shellsorter    ", new ShellSorterImpl());
+		sortermap.put("Bucketsort     ", new BucketSorterImpl());
 		System.out.println("Shuffled");
 		for (Integer i : valueCounts) {
 			executeSorter(sortermap, generateList(i));
